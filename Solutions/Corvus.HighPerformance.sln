@@ -3,12 +3,29 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Corvus.HighPerformance", "Corvus.HighPerformance\Corvus.HighPerformance.csproj", "{29F7A863-1A8D-4152-8AB3-C8A06E2E5688}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Corvus.HighPerformance.Specs", "Corvus.HighPerformance.Specs\Corvus.HighPerformance.Specs.csproj", "{9D793435-6D8E-4760-A922-51A2C8720234}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{29F7A863-1A8D-4152-8AB3-C8A06E2E5688}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29F7A863-1A8D-4152-8AB3-C8A06E2E5688}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29F7A863-1A8D-4152-8AB3-C8A06E2E5688}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29F7A863-1A8D-4152-8AB3-C8A06E2E5688}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D793435-6D8E-4760-A922-51A2C8720234}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D793435-6D8E-4760-A922-51A2C8720234}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D793435-6D8E-4760-A922-51A2C8720234}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D793435-6D8E-4760-A922-51A2C8720234}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1721FF6A-6773-44F1-8CFB-C5DF7EC2C703}
 	EndGlobalSection
 EndGlobal
