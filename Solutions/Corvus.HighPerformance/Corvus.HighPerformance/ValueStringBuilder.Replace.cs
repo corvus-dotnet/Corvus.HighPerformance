@@ -33,13 +33,46 @@ public ref partial struct ValueStringBuilder
         int startIndex,
         int count)
     {
-        if (_chars[startIndex..(startIndex + count)].IndexOf(oldValue) != -1)
+        // TODO: range must not exceed pos
+
+        int matchIndex = _chars[startIndex..(startIndex + count)].IndexOf(oldValue);
+        if (matchIndex == -1)
         {
-            // If it turns out that our ValueStringBuilderStringableClaimSetFixedList
-            // benchmark shows that ValueStringBuilder makes a useful difference, then we
-            // should provide a working implementation. (The benchmark should never hit
-            // the code path where replacement is required.)
-            throw new NotSupportedException("We haven't implemented the case where the replace is actually necessary yet");
+            return;
+        }
+
+        int diff = newValue.Length - oldValue.Length;
+        if (diff == 0)
+        {
+            return;
+        }
+        if (diff < 0)
+        {
+            // We will never need to grow the buffer, but we might need to shift characters
+            // down.
+            Span<char> remainingTargetBuffer = _chars[(startIndex + matchIndex)..this._pos];
+            do
+            {
+                this._pos += diff;
+
+                newValue.CopyTo(remainingTargetBuffer);
+
+                Span<char> remainingSourceBuffer = remainingTargetBuffer[oldValue.Length..];
+                remainingTargetBuffer = remainingTargetBuffer[newValue.Length..];
+
+                matchIndex = remainingSourceBuffer.IndexOf(oldValue);
+
+                int endOfChunkToRelocate = matchIndex == -1 ? remainingSourceBuffer.Length : matchIndex;
+                remainingSourceBuffer[..endOfChunkToRelocate].CopyTo(remainingTargetBuffer);
+
+                remainingTargetBuffer = remainingSourceBuffer[endOfChunkToRelocate..];
+            } while (matchIndex != -1);
+
+            return;
+        }
+        else
+        {
+            
         }
     }
 }

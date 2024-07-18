@@ -134,13 +134,32 @@ this.ScenarioInitialize(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Shrinks")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Replace content in a ValueStringBuilder")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "", null)]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "", null)]
-        public async System.Threading.Tasks.Task Shrinks(string initializationType, string notUsed6248, string[] exampleTags)
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "i", "0", "13", "Hio, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "i", "0", "13", "Hio, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "i", "1", "12", "Hio, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "i", "1", "12", "Hio, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "i", "1", "3", "Hio, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "i", "1", "3", "Hio, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "i", "1", "2", "Hello, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "i", "1", "2", "Hello, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "i", "2", "11", "Hello, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "i", "2", "11", "Hello, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "or", "x", "2", "25", "Hello, Wxld x wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "or", "x", "2", "25", "Hello, Wxld x wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "or", "x", "2", "10", "Hello, Wxld or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "or", "x", "2", "10", "Hello, Wxld or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "or", "x", "9", "6", "Hello, World x wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "or", "x", "9", "6", "Hello, World x wherever!", null)]
+        public async System.Threading.Tasks.Task Shrinks(string initializationType, string find, string replacement, string start, string length, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("InitializationType", initializationType);
+            argumentsOfScenario.Add("Find", find);
+            argumentsOfScenario.Add("Replacement", replacement);
+            argumentsOfScenario.Add("Start", start);
+            argumentsOfScenario.Add("Length", length);
+            argumentsOfScenario.Add("Result", result);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Shrinks", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 14
 this.ScenarioInitialize(scenarioInfo);
@@ -152,6 +171,21 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
+#line 15
+ await testRunner.GivenAsync(string.Format("a ValueStringBuilder initialized with \'{0}\' of length 13", initializationType), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 16
+ await testRunner.AndAsync("I append \'Hello, World or wherever!\' to the ValueStringBuilder", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 17
+ await testRunner.AndAsync(string.Format("I replace \'{0}\' with \'{1}\' at index {2} with count {3}", find, replacement, start, length), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 18
+ await testRunner.WhenAsync("I get the string from the ValueStringBuilder", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 19
+ await testRunner.ThenAsync(string.Format("the ValueStringBuilder string should be \'{0}\'", result), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
             }
             await this.ScenarioCleanupAsync();
         }
@@ -167,7 +201,7 @@ this.ScenarioInitialize(scenarioInfo);
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("InitializationType", initializationType);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Changes without length change", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 20
+#line 39
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -192,7 +226,7 @@ this.ScenarioInitialize(scenarioInfo);
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("InitializationType", initializationType);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Grows but fits in available space", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 26
+#line 45
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -217,7 +251,7 @@ this.ScenarioInitialize(scenarioInfo);
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("InitializationType", initializationType);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Grows and requires resize", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 32
+#line 51
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
