@@ -29,8 +29,8 @@ Scenario Outline: Shrinks
 		| Capacity           | ell  | i           | 1     | 2      | Hello, World or wherever! |
 		| Span               | ell  | i           | 2     | 11     | Hello, World or wherever! |
 		| Capacity           | ell  | i           | 2     | 11     | Hello, World or wherever! |
-		| Span               | or   | x           | 2     | 25     | Hello, Wxld x wherever!   |
-		| Capacity           | or   | x           | 2     | 25     | Hello, Wxld x wherever!   |
+		| Span               | or   | x           | 2     | 23     | Hello, Wxld x wherever!   |
+		| Capacity           | or   | x           | 2     | 23     | Hello, Wxld x wherever!   |
 		| Span               | or   | x           | 2     | 10     | Hello, Wxld or wherever!  |
 		| Capacity           | or   | x           | 2     | 10     | Hello, Wxld or wherever!  |
 		| Span               | or   | x           | 9     | 6      | Hello, World x wherever!  |

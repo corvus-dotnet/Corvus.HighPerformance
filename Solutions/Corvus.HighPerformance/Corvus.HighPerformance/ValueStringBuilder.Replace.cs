@@ -46,26 +46,35 @@ public ref partial struct ValueStringBuilder
         {
             return;
         }
+
         if (diff < 0)
         {
             // We will never need to grow the buffer, but we might need to shift characters
             // down.
             Span<char> remainingTargetBuffer = _chars[(startIndex + matchIndex)..this._pos];
+            Span<char> remainingSourceBuffer = remainingTargetBuffer;
+            int endOfSearchRangeRelativeToRemainingSourceBuffer = count - matchIndex;
             do
             {
                 this._pos += diff;
 
                 newValue.CopyTo(remainingTargetBuffer);
 
-                Span<char> remainingSourceBuffer = remainingTargetBuffer[oldValue.Length..];
+                remainingSourceBuffer = remainingSourceBuffer[oldValue.Length..];
+                endOfSearchRangeRelativeToRemainingSourceBuffer -= oldValue.Length;
                 remainingTargetBuffer = remainingTargetBuffer[newValue.Length..];
 
-                matchIndex = remainingSourceBuffer.IndexOf(oldValue);
+                matchIndex = remainingSourceBuffer[..endOfSearchRangeRelativeToRemainingSourceBuffer]
+                    .IndexOf(oldValue);
 
-                int endOfChunkToRelocate = matchIndex == -1 ? remainingSourceBuffer.Length : matchIndex;
-                remainingSourceBuffer[..endOfChunkToRelocate].CopyTo(remainingTargetBuffer);
+                int lengthOfChunkToRelocate = matchIndex == -1
+                    ? remainingSourceBuffer.Length
+                    : matchIndex;
+                remainingSourceBuffer[..lengthOfChunkToRelocate].CopyTo(remainingTargetBuffer);
 
-                remainingTargetBuffer = remainingSourceBuffer[endOfChunkToRelocate..];
+                remainingSourceBuffer = remainingSourceBuffer[lengthOfChunkToRelocate..];
+                endOfSearchRangeRelativeToRemainingSourceBuffer -= lengthOfChunkToRelocate;
+                remainingTargetBuffer = remainingTargetBuffer[lengthOfChunkToRelocate..];
             } while (matchIndex != -1);
 
             return;
