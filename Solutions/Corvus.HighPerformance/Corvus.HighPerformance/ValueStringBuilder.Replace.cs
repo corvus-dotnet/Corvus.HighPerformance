@@ -44,6 +44,16 @@ public ref partial struct ValueStringBuilder
         int diff = newValue.Length - oldValue.Length;
         if (diff == 0)
         {
+            Span<char> remainingBuffer = _chars.Slice(startIndex, count);
+            do
+            {
+                remainingBuffer = remainingBuffer[matchIndex..];
+                newValue.CopyTo(remainingBuffer);
+                remainingBuffer = remainingBuffer[oldValue.Length..];
+
+                matchIndex = remainingBuffer.IndexOf(oldValue);
+            } while (matchIndex != -1);
+
             return;
         }
 

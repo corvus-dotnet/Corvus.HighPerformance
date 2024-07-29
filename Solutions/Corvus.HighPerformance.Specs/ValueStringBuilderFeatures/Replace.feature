@@ -12,7 +12,7 @@ Scenario Outline: No change
 		| Capacity           |
 
 Scenario Outline: Shrinks
-	Given a ValueStringBuilder initialized with '<InitializationType>' of length 13
+	Given a ValueStringBuilder initialized with '<InitializationType>' of length 23
 	And I append 'Hello, World or wherever!' to the ValueStringBuilder
 	And I replace '<Find>' with '<Replacement>' at index <Start> with count <Length>
 	When I get the string from the ValueStringBuilder
@@ -37,10 +37,29 @@ Scenario Outline: Shrinks
 		| Capacity           | or   | x           | 9     | 6      | Hello, World x wherever!  |
 
 Scenario Outline: Changes without length change
+	Given a ValueStringBuilder initialized with '<InitializationType>' of length 23
+	And I append 'Hello, World or wherever!' to the ValueStringBuilder
+	And I replace '<Find>' with '<Replacement>' at index <Start> with count <Length>
+	When I get the string from the ValueStringBuilder
+	Then the ValueStringBuilder string should be '<Result>'
 	Examples:
-		| InitializationType |
-		| Span               |
-		| Capacity           |
+		| InitializationType | Find | Replacement | Start | Length | Result                    |
+		| Span               | ell  | ijk         | 0     | 13     | Hijko, World or wherever! |
+		| Capacity           | ell  | ijk         | 0     | 13     | Hijko, World or wherever! |
+		| Span               | ell  | ijk         | 1     | 12     | Hijko, World or wherever! |
+		| Capacity           | ell  | ijk         | 1     | 12     | Hijko, World or wherever! |
+		| Span               | ell  | ijk         | 1     | 3      | Hijko, World or wherever! |
+		| Capacity           | ell  | ijk         | 1     | 3      | Hijko, World or wherever! |
+		| Span               | ell  | ijk         | 1     | 2      | Hello, World or wherever! |
+		| Capacity           | ell  | ijk         | 1     | 2      | Hello, World or wherever! |
+		| Span               | ell  | ijk         | 2     | 11     | Hello, World or wherever! |
+		| Capacity           | ell  | ijk         | 2     | 11     | Hello, World or wherever! |
+		| Span               | or   | al          | 2     | 23     | Hello, Walld al wherever! |
+		| Capacity           | or   | al          | 2     | 23     | Hello, Walld al wherever! |
+		| Span               | or   | al          | 2     | 10     | Hello, Walld or wherever! |
+		| Capacity           | or   | al          | 2     | 10     | Hello, Walld or wherever! |
+		| Span               | or   | al          | 9     | 6      | Hello, World al wherever! |
+		| Capacity           | or   | al          | 9     | 6      | Hello, World al wherever! |
 
 Scenario Outline: Grows but fits in available space
 	Examples:
