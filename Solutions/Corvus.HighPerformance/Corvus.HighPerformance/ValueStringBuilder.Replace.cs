@@ -35,16 +35,18 @@ public ref partial struct ValueStringBuilder
     {
         // TODO: range must not exceed pos
 
-        int matchIndex = _chars[startIndex..(startIndex + count)].IndexOf(oldValue);
-        if (matchIndex == -1)
-        {
-            return;
-        }
+        Span<char> rangeBuffer = _chars.Slice(startIndex, count);
 
         int diff = newValue.Length - oldValue.Length;
         if (diff == 0)
         {
-            Span<char> remainingBuffer = _chars.Slice(startIndex, count);
+            int matchIndex = rangeBuffer.IndexOf(oldValue);
+            if (matchIndex == -1)
+            {
+                return;
+            }
+
+            Span<char> remainingBuffer = rangeBuffer;
             do
             {
                 remainingBuffer = remainingBuffer[matchIndex..];
@@ -59,6 +61,12 @@ public ref partial struct ValueStringBuilder
 
         if (diff < 0)
         {
+            int matchIndex = rangeBuffer.IndexOf(oldValue);
+            if (matchIndex == -1)
+            {
+                return;
+            }
+
             // We will never need to grow the buffer, but we might need to shift characters
             // down.
             Span<char> remainingTargetBuffer = _chars[(startIndex + matchIndex)..this._pos];
@@ -91,7 +99,59 @@ public ref partial struct ValueStringBuilder
         }
         else
         {
-            
+            int matchIndex = rangeBuffer.IndexOf(oldValue);
+            if (matchIndex == -1)
+            {
+                return;
+            }
+
+            Span<int> matchIndexes = stackalloc int[(rangeBuffer.Length + oldValue.Length - 1) / oldValue.Length];
+
+            int matchCount = 0;
+            int currentRelocationDistance = 0;
+            while (matchIndex != -1)
+            {
+                matchIndexes[matchCount++] = matchIndex;
+                currentRelocationDistance += diff;
+
+                int nextIndex = rangeBuffer[(matchIndex + oldValue.Length)..].IndexOf(oldValue);
+                matchIndex = nextIndex == -1 ? -1 : matchIndex + nextIndex + oldValue.Length;
+            }
+
+            int relocationRangeEndIndex = this._pos;
+
+            int growBy = (this._pos + currentRelocationDistance) - _chars.Length;
+            if (growBy > 0)
+            {
+                Grow(growBy);
+            }
+            this._pos += currentRelocationDistance;
+
+
+            // We work from the back of the string when growing to avoid having to
+            // shift anything more than once.
+            do
+            {
+                matchIndex = matchIndexes[matchCount - 1];
+
+                int relocationTargetStart = startIndex + matchIndex + oldValue.Length + currentRelocationDistance;
+                int relocationSourceStart = startIndex + matchIndex + oldValue.Length;
+                int endOfSearchRangeRelativeToRemainingSourceBuffer = count - matchIndex;
+
+                Span<char> relocationTargetBuffer = _chars[relocationTargetStart..];
+                Span<char> sourceBuffer = _chars[relocationSourceStart..relocationRangeEndIndex];
+
+                sourceBuffer.CopyTo(relocationTargetBuffer);
+
+                currentRelocationDistance -= diff;
+                Span<char> replaceTargetBuffer = this._chars.Slice(startIndex + matchIndex + currentRelocationDistance);
+                newValue.CopyTo(replaceTargetBuffer);
+
+                relocationRangeEndIndex = matchIndex + startIndex;
+                matchIndex = rangeBuffer[..matchIndex].LastIndexOf(oldValue);
+
+                matchCount -= 1;
+            } while (matchCount > 0);
         }
     }
 }

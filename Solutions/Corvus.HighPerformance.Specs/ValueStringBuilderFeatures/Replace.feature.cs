@@ -252,13 +252,48 @@ this.ScenarioInitialize(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Grows but fits in available space")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Replace content in a ValueStringBuilder")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "", null)]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "", null)]
-        public async System.Threading.Tasks.Task GrowsButFitsInAvailableSpace(string initializationType, string notUsed6248, string[] exampleTags)
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "ijkx", "0", "13", "Hijkxo, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "ijkx", "0", "13", "Hijkxo, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "ijkx", "1", "12", "Hijkxo, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "ijkx", "1", "12", "Hijkxo, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "ijkx", "1", "3", "Hijkxo, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "ijkx", "1", "3", "Hijkxo, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "ijkx", "1", "2", "Hello, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "ijkx", "1", "2", "Hello, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "ijkx", "2", "11", "Hello, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "ijkx", "2", "11", "Hello, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "or", "alz", "2", "23", "Hello, Walzld alz wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "or", "alz", "2", "23", "Hello, Walzld alz wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "or", "alz", "2", "10", "Hello, Walzld or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "or", "alz", "2", "10", "Hello, Walzld or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "or", "alz", "9", "6", "Hello, World alz wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "or", "alz", "9", "6", "Hello, World alz wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "ijkxwv", "0", "13", "Hijkxwvo, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "ijkxwv", "0", "13", "Hijkxwvo, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "ijkxwv", "1", "12", "Hijkxwvo, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "ijkxwv", "1", "12", "Hijkxwvo, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "ijkxwv", "1", "3", "Hijkxwvo, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "ijkxwv", "1", "3", "Hijkxwvo, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "ijkxwv", "1", "2", "Hello, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "ijkxwv", "1", "2", "Hello, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "ijkxwv", "2", "11", "Hello, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "ijkxwv", "2", "11", "Hello, World or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "or", "alzyh", "2", "23", "Hello, Walzyhld alzyh wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "or", "alzyh", "2", "23", "Hello, Walzyhld alzyh wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "or", "alzyh", "2", "10", "Hello, Walzyhld or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "or", "alzyh", "2", "10", "Hello, Walzyhld or wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "or", "alzyh", "9", "6", "Hello, World alzyh wherever!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "or", "alzyh", "9", "6", "Hello, World alzyh wherever!", null)]
+        public async System.Threading.Tasks.Task GrowsButFitsInAvailableSpace(string initializationType, string find, string replacement, string start, string length, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("InitializationType", initializationType);
+            argumentsOfScenario.Add("Find", find);
+            argumentsOfScenario.Add("Replacement", replacement);
+            argumentsOfScenario.Add("Start", start);
+            argumentsOfScenario.Add("Length", length);
+            argumentsOfScenario.Add("Result", result);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Grows but fits in available space", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 64
 this.ScenarioInitialize(scenarioInfo);
@@ -270,6 +305,21 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
+#line 65
+ await testRunner.GivenAsync(string.Format("a ValueStringBuilder initialized with \'{0}\' of length 25", initializationType), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 66
+ await testRunner.AndAsync("I append \'Hello, World or wherever!\' to the ValueStringBuilder", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 67
+ await testRunner.AndAsync(string.Format("I replace \'{0}\' with \'{1}\' at index {2} with count {3}", find, replacement, start, length), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 68
+ await testRunner.WhenAsync("I get the string from the ValueStringBuilder", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 69
+ await testRunner.ThenAsync(string.Format("the ValueStringBuilder string should be \'{0}\'", result), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
             }
             await this.ScenarioCleanupAsync();
         }
@@ -277,15 +327,50 @@ this.ScenarioInitialize(scenarioInfo);
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Grows and requires resize")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Replace content in a ValueStringBuilder")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "", null)]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "", null)]
-        public async System.Threading.Tasks.Task GrowsAndRequiresResize(string initializationType, string notUsed6248, string[] exampleTags)
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "ijkx", "0", "13", "Hijkxo, World or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "ijkx", "0", "13", "Hijkxo, World or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "ijkx", "1", "12", "Hijkxo, World or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "ijkx", "1", "12", "Hijkxo, World or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "ijkx", "1", "3", "Hijkxo, World or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "ijkx", "1", "3", "Hijkxo, World or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "ijkx", "1", "2", "Hello, World or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "ijkx", "1", "2", "Hello, World or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "ijkx", "2", "11", "Hello, World or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "ijkx", "2", "11", "Hello, World or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "or", "alz", "2", "23", "Hello, Walzld alz wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "or", "alz", "2", "23", "Hello, Walzld alz wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "or", "alz", "2", "10", "Hello, Walzld or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "or", "alz", "2", "10", "Hello, Walzld or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "or", "alz", "9", "6", "Hello, World alz wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "or", "alz", "9", "6", "Hello, World alz wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "ijkxwv", "0", "13", "Hijkxwvo, World or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "ijkxwv", "0", "13", "Hijkxwvo, World or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "ijkxwv", "1", "12", "Hijkxwvo, World or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "ijkxwv", "1", "12", "Hijkxwvo, World or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "ijkxwv", "1", "3", "Hijkxwvo, World or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "ijkxwv", "1", "3", "Hijkxwvo, World or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "ijkxwv", "1", "2", "Hello, World or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "ijkxwv", "1", "2", "Hello, World or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "ell", "ijkxwv", "2", "11", "Hello, World or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "ell", "ijkxwv", "2", "11", "Hello, World or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "or", "alzyh", "2", "23", "Hello, Walzyhld alzyh wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "or", "alzyh", "2", "23", "Hello, Walzyhld alzyh wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "or", "alzyh", "2", "10", "Hello, Walzyhld or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "or", "alzyh", "2", "10", "Hello, Walzyhld or wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "or", "alzyh", "9", "6", "Hello, World alzyh wherever!padpadp", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "or", "alzyh", "9", "6", "Hello, World alzyh wherever!padpadp", null)]
+        public async System.Threading.Tasks.Task GrowsAndRequiresResize(string initializationType, string find, string replacement, string start, string length, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("InitializationType", initializationType);
+            argumentsOfScenario.Add("Find", find);
+            argumentsOfScenario.Add("Replacement", replacement);
+            argumentsOfScenario.Add("Start", start);
+            argumentsOfScenario.Add("Length", length);
+            argumentsOfScenario.Add("Result", result);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Grows and requires resize", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 70
+#line 106
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -295,6 +380,21 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
+#line 107
+ await testRunner.GivenAsync(string.Format("a ValueStringBuilder initialized with \'{0}\' of length 32", initializationType), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 108
+ await testRunner.AndAsync("I append \'Hello, World or wherever!padpadp\' to the ValueStringBuilder", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 109
+ await testRunner.AndAsync(string.Format("I replace \'{0}\' with \'{1}\' at index {2} with count {3}", find, replacement, start, length), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 110
+ await testRunner.WhenAsync("I get the string from the ValueStringBuilder", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 111
+ await testRunner.ThenAsync(string.Format("the ValueStringBuilder string should be \'{0}\'", result), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
             }
             await this.ScenarioCleanupAsync();
         }
