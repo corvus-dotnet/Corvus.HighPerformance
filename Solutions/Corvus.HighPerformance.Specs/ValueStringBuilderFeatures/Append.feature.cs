@@ -48,7 +48,7 @@ namespace ValueStringBuilderFeatures
         public static async System.Threading.Tasks.Task FeatureSetupAsync(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = global::Reqnroll.TestRunnerManager.GetTestRunnerForAssembly(null, System.Threading.Thread.CurrentThread.ManagedThreadId.ToString());
-            global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ValueStringBuilderFeatures", "Append content into a ValueStringBuilder", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+            global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "ValueStringBuilderFeatures", "Append content into a ValueStringBuilder", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
             await testRunner.OnFeatureStartAsync(featureInfo);
         }
         
@@ -92,16 +92,22 @@ namespace ValueStringBuilderFeatures
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("[scenario name]")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Fits in available space")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Append content into a ValueStringBuilder")]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.TestCategoryAttribute("tag1")]
-        public async System.Threading.Tasks.Task ScenarioName()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "11", "Hello", "World!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "11", "Hello", "World!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "20", "Hello", "World!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "20", "Hello", "World!", null)]
+        public async System.Threading.Tasks.Task FitsInAvailableSpace(string initializationType, string initialLength, string firstValue, string secondValue, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
-                    "tag1"};
+            string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("[scenario name]", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 6
+            argumentsOfScenario.Add("InitializationType", initializationType);
+            argumentsOfScenario.Add("InitialLength", initialLength);
+            argumentsOfScenario.Add("FirstValue", firstValue);
+            argumentsOfScenario.Add("SecondValue", secondValue);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Fits in available space", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 3
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -111,14 +117,63 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
+#line 4
+    await testRunner.GivenAsync(string.Format("a ValueStringBuilder initialized with \'{0}\' of length {1}", initializationType, initialLength), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 5
+ await testRunner.AndAsync(string.Format("I append \'{0}\' to the ValueStringBuilder", firstValue), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 6
+ await testRunner.AndAsync(string.Format("I append \'{0}\' to the ValueStringBuilder", secondValue), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
 #line 7
-    await testRunner.GivenAsync("[context]", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+ await testRunner.WhenAsync("I get the string from the ValueStringBuilder", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 8
-    await testRunner.WhenAsync("[action]", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.ThenAsync(string.Format("the ValueStringBuilder string should be \'{0}{1}\'", firstValue, secondValue), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 9
-    await testRunner.ThenAsync("[outcome]", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Grows")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Append content into a ValueStringBuilder")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "11", "Hello, world!", "It is mighty fine to see you today.", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "11", "Hello, world!", "It is mighty fine to see you today.", null)]
+        public async System.Threading.Tasks.Task Grows(string initializationType, string initialLength, string firstValue, string secondValue, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("InitializationType", initializationType);
+            argumentsOfScenario.Add("InitialLength", initialLength);
+            argumentsOfScenario.Add("FirstValue", firstValue);
+            argumentsOfScenario.Add("SecondValue", secondValue);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Grows", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 16
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 17
+    await testRunner.GivenAsync(string.Format("a ValueStringBuilder initialized with \'{0}\' of length {1}", initializationType, initialLength), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 18
+ await testRunner.AndAsync(string.Format("I append \'{0}\' to the ValueStringBuilder", firstValue), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 19
+ await testRunner.AndAsync(string.Format("I append \'{0}\' to the ValueStringBuilder", secondValue), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 20
+ await testRunner.WhenAsync("I get the string from the ValueStringBuilder", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 21
+ await testRunner.ThenAsync(string.Format("the ValueStringBuilder string should be \'{0}{1}\'", firstValue, secondValue), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

@@ -520,7 +520,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("Start", start);
             argumentsOfScenario.Add("Length", length);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Specified range is out of bounds", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 187
+#line 185
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -530,16 +530,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 188
+#line 186
  await testRunner.GivenAsync(string.Format("a ValueStringBuilder initialized with \'{0}\' of length 25", initializationType), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 189
+#line 187
  await testRunner.AndAsync("I append \'Hello, World or wherever!\' to the ValueStringBuilder", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 190
+#line 188
  await testRunner.AndAsync(string.Format("I attempt to replace \'{0}\' with \'{1}\' at index {2} with count {3}", find, replacement, start, length), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 191
+#line 189
  await testRunner.ThenAsync("the attempt should have thrown a \'System.ArgumentOutOfRangeException\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
