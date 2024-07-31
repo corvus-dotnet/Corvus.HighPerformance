@@ -33,7 +33,15 @@ public ref partial struct ValueStringBuilder
         int startIndex,
         int count)
     {
-        // TODO: range must not exceed pos
+        if (startIndex < 0 || (startIndex + count) > _pos)
+        {
+            throw new ArgumentOutOfRangeException(nameof(startIndex));
+        }
+
+        if (count == 0)
+        {
+            return;
+        }
 
         Span<char> rangeBuffer = _chars.Slice(startIndex, count);
 

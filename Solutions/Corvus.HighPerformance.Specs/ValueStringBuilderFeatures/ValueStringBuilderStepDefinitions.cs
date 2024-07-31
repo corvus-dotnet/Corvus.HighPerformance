@@ -2,12 +2,14 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
+using Corvus.HighPerformance.Specs;
+
 using Reqnroll;
 
 namespace ValueStringBuilderFeatures;
 
 [Binding]
-public class ValueStringBuilderStepDefinitions
+public class ValueStringBuilderStepDefinitions(ExceptionStepDefinitions exceptionSteps)
 {
     private ValueStringBuilderTestDriver? driver;
 
@@ -32,6 +34,15 @@ public class ValueStringBuilderStepDefinitions
     {
         this.Driver.AddOperation(new ValueStringBuilderTestDriver.ReplaceOperation(
             oldValue, newValue, startIndex, count));
+    }
+
+    [Given("I attempt to replace {string} with {string} at index {int} with count {int}")]
+    public void GivenIAttemptToReplaceWithAtIndexWithCount(
+        string oldValue, string newValue, int startIndex, int count)
+    {
+        this.Driver.AddOperation(new ValueStringBuilderTestDriver.AttemptReplaceOperation(
+            oldValue, newValue, startIndex, count, exceptionSteps));
+        this.Driver.Execute();
     }
 
     [When("I get the string from the ValueStringBuilder")]

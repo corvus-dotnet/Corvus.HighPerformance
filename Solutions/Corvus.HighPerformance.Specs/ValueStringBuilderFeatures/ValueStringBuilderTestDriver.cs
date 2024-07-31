@@ -3,6 +3,7 @@
 // </copyright>
 
 using Corvus.HighPerformance;
+using Corvus.HighPerformance.Specs;
 
 namespace ValueStringBuilderFeatures;
 
@@ -66,6 +67,27 @@ public class ValueStringBuilderTestDriver(
         public override void Execute(ref ValueStringBuilder sb)
         {
             sb.Replace(oldValue, newValue, startIndex, count);
+        }
+    }
+
+    public class AttemptReplaceOperation(
+            string oldValue,
+            string newValue,
+            int startIndex,
+            int count,
+            ExceptionStepDefinitions exceptionSteps)
+        : OperationBase
+    {
+        public override void Execute(ref ValueStringBuilder sb)
+        {
+            try
+            {
+                sb.Replace(oldValue, newValue, startIndex, count);
+            }
+            catch (Exception ex)
+            {
+                exceptionSteps.Exception = ex;
+            }
         }
     }
 }

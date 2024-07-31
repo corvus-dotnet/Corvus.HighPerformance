@@ -398,6 +398,153 @@ this.ScenarioInitialize(scenarioInfo);
             }
             await this.ScenarioCleanupAsync();
         }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Text not present")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Replace content in a ValueStringBuilder")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "foo", "ijkx", "0", "25", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "foo", "ijkx", "0", "25", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "elloo", "ijkx", "0", "25", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "elloo", "ijkx", "0", "25", null)]
+        public async System.Threading.Tasks.Task TextNotPresent(string initializationType, string find, string replacement, string start, string length, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("InitializationType", initializationType);
+            argumentsOfScenario.Add("Find", find);
+            argumentsOfScenario.Add("Replacement", replacement);
+            argumentsOfScenario.Add("Start", start);
+            argumentsOfScenario.Add("Length", length);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Text not present", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 148
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 149
+ await testRunner.GivenAsync(string.Format("a ValueStringBuilder initialized with \'{0}\' of length 25", initializationType), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 150
+ await testRunner.AndAsync("I append \'Hello, World or wherever!\' to the ValueStringBuilder", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 151
+ await testRunner.AndAsync(string.Format("I replace \'{0}\' with \'{1}\' at index {2} with count {3}", find, replacement, start, length), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 152
+ await testRunner.WhenAsync("I get the string from the ValueStringBuilder", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 153
+ await testRunner.ThenAsync("the ValueStringBuilder string should be \'Hello, World or wherever!\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Text not within specified range")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Replace content in a ValueStringBuilder")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "orld", "ijkx", "0", "8", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "orld", "ijkx", "0", "8", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "orld", "ijkx", "0", "8", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "orld", "ijkx", "0", "11", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "orld", "ijkx", "8", "3", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "orld", "ijkx", "8", "3", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "orld", "ijkx", "9", "16", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "orld", "ijkx", "9", "16", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "orld", "ijkx", "12", "13", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "orld", "ijkx", "12", "13", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "orld", "ijkx", "0", "0", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "orld", "ijkx", "0", "0", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "orld", "ijkx", "8", "0", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "orld", "ijkx", "8", "0", null)]
+        public async System.Threading.Tasks.Task TextNotWithinSpecifiedRange(string initializationType, string find, string replacement, string start, string length, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("InitializationType", initializationType);
+            argumentsOfScenario.Add("Find", find);
+            argumentsOfScenario.Add("Replacement", replacement);
+            argumentsOfScenario.Add("Start", start);
+            argumentsOfScenario.Add("Length", length);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Text not within specified range", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 162
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 163
+ await testRunner.GivenAsync(string.Format("a ValueStringBuilder initialized with \'{0}\' of length 25", initializationType), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 164
+ await testRunner.AndAsync("I append \'Hello, World or wherever!\' to the ValueStringBuilder", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 165
+ await testRunner.AndAsync(string.Format("I replace \'{0}\' with \'{1}\' at index {2} with count {3}", find, replacement, start, length), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 166
+ await testRunner.WhenAsync("I get the string from the ValueStringBuilder", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 167
+ await testRunner.ThenAsync("the ValueStringBuilder string should be \'Hello, World or wherever!\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Specified range is out of bounds")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Replace content in a ValueStringBuilder")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "orld", "ijkx", "0", "26", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "orld", "ijkx", "0", "26", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "orld", "ijkx", "1", "25", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "orld", "ijkx", "1", "25", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "orld", "ijkx", "10", "-4", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "orld", "ijkx", "10", "-4", null)]
+        public async System.Threading.Tasks.Task SpecifiedRangeIsOutOfBounds(string initializationType, string find, string replacement, string start, string length, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("InitializationType", initializationType);
+            argumentsOfScenario.Add("Find", find);
+            argumentsOfScenario.Add("Replacement", replacement);
+            argumentsOfScenario.Add("Start", start);
+            argumentsOfScenario.Add("Length", length);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Specified range is out of bounds", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 187
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 188
+ await testRunner.GivenAsync(string.Format("a ValueStringBuilder initialized with \'{0}\' of length 25", initializationType), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 189
+ await testRunner.AndAsync("I append \'Hello, World or wherever!\' to the ValueStringBuilder", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 190
+ await testRunner.AndAsync(string.Format("I attempt to replace \'{0}\' with \'{1}\' at index {2} with count {3}", find, replacement, start, length), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 191
+ await testRunner.ThenAsync("the attempt should have thrown a \'System.ArgumentOutOfRangeException\'", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
     }
 }
 #pragma warning restore

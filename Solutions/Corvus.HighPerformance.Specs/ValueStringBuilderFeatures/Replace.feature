@@ -144,6 +144,54 @@ Scenario Outline: Grows and requires resize
 		| Span               | or   | alzyh       | 9     | 6      | Hello, World alzyh wherever!padpadp    |
 		| Capacity           | or   | alzyh       | 9     | 6      | Hello, World alzyh wherever!padpadp    |
 
-# TODO:
-# Non-changing Replace calls
-# Range check exception
+
+Scenario Outline: Text not present
+	Given a ValueStringBuilder initialized with '<InitializationType>' of length 25
+	And I append 'Hello, World or wherever!' to the ValueStringBuilder
+	And I replace '<Find>' with '<Replacement>' at index <Start> with count <Length>
+	When I get the string from the ValueStringBuilder
+	Then the ValueStringBuilder string should be 'Hello, World or wherever!'
+	Examples:
+		| InitializationType | Find  | Replacement | Start | Length |
+		| Span               | foo   | ijkx        | 0     | 25     |
+		| Capacity           | foo   | ijkx        | 0     | 25     |
+		| Span               | elloo | ijkx        | 0     | 25     |
+		| Capacity           | elloo | ijkx        | 0     | 25     |
+
+
+Scenario Outline: Text not within specified range
+	Given a ValueStringBuilder initialized with '<InitializationType>' of length 25
+	And I append 'Hello, World or wherever!' to the ValueStringBuilder
+	And I replace '<Find>' with '<Replacement>' at index <Start> with count <Length>
+	When I get the string from the ValueStringBuilder
+	Then the ValueStringBuilder string should be 'Hello, World or wherever!'
+	Examples:
+		| InitializationType | Find | Replacement | Start | Length |
+		| Span               | orld | ijkx        | 0     | 8      |
+		| Capacity           | orld | ijkx        | 0     | 8      |
+		| Span               | orld | ijkx        | 0     | 8      |
+		| Capacity           | orld | ijkx        | 0     | 11     |
+		| Span               | orld | ijkx        | 8     | 3      |
+		| Capacity           | orld | ijkx        | 8     | 3      |
+		| Span               | orld | ijkx        | 9     | 16     |
+		| Capacity           | orld | ijkx        | 9     | 16     |
+		| Span               | orld | ijkx        | 12    | 13     |
+		| Capacity           | orld | ijkx        | 12    | 13     |
+		| Span               | orld | ijkx        | 0     | 0      |
+		| Capacity           | orld | ijkx        | 0     | 0      |
+		| Span               | orld | ijkx        | 8     | 0      |
+		| Capacity           | orld | ijkx        | 8     | 0      |
+
+Scenario Outline: Specified range is out of bounds
+	Given a ValueStringBuilder initialized with '<InitializationType>' of length 25
+	And I append 'Hello, World or wherever!' to the ValueStringBuilder
+	And I attempt to replace '<Find>' with '<Replacement>' at index <Start> with count <Length>
+	Then the attempt should have thrown a 'System.ArgumentOutOfRangeException'
+	Examples:
+		| InitializationType | Find | Replacement | Start | Length |
+		| Span               | orld | ijkx        | 0     | 26     |
+		| Capacity           | orld | ijkx        | 0     | 26     |
+		| Span               | orld | ijkx        | 1     | 25     |
+		| Capacity           | orld | ijkx        | 1     | 25     |
+		| Span               | orld | ijkx        | 10    | -4     |
+		| Capacity           | orld | ijkx        | 10    | -4     |
