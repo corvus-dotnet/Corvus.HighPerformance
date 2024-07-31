@@ -53,7 +53,7 @@ jobs:
         #  in the Package phase are not available to the Publish phase. Therefore, we use ACR Tasks to
         #  build the images instead.
         environmentVariablesYaml: |
-          BUILDVAR_NuGetPublishSource: "${{ startsWith(github.ref, 'refs/tags/') && 'https://api.nuget.org/v3/index.json' || 'https://nuget.pkg.github.com/endjin/index.json' }}"
+          BUILDVAR_NuGetPublishSource: "${{ startsWith(github.ref, 'refs/tags/') && 'https://api.nuget.org/v3/index.json' || 'https://nuget.pkg.github.com/corvus-dotnet/index.json' }}"
           BUILDVAR_ContainerRegistryFqdn: endjin.azurecr.io
           BUILDVAR_UseAcrTasks: true
         secretsYaml: |
