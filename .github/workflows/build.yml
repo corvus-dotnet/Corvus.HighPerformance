@@ -57,8 +57,8 @@ jobs:
           BUILDVAR_ContainerRegistryFqdn: endjin.azurecr.io
           BUILDVAR_UseAcrTasks: true
         secretsYaml: |
-          NUGET_API_KEY: "${{ startsWith(github.ref, 'refs/tags/') && secrets.ENDJIN_NUGET_APIKEY || secrets.ENDJIN_GITHUB_PUBLISHER_PAT }}"
-
+          NUGET_API_KEY: "${{ startsWith(github.ref, 'refs/tags/') && secrets.NUGET_APIKEY || secrets.BUILD_PUBLISHER_PAT }}"
+ 
   build:
     needs: prepareConfig
     uses: endjin/Endjin.RecommendedPractices.GitHubActions/.github/workflows/scripted-build-pipeline.yml@main
