@@ -259,7 +259,7 @@ public ref partial struct ValueStringBuilder
     ////    _pos += length;
     ////}
 
-    public void Append(ReadOnlySpan<char> value)
+    public void Append(scoped ReadOnlySpan<char> value)
     {
         int pos = _pos;
         if (pos > _chars.Length - value.Length)
