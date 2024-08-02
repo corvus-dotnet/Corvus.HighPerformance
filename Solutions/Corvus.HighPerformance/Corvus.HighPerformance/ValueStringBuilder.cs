@@ -51,6 +51,35 @@ public ref partial struct ValueStringBuilder
 
     public int Capacity => _chars.Length;
 
+    /// <summary>
+    /// Return the underlying rented buffer, if any.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// Once you have retrieved this, you must not make any further use of
+    /// <see cref="ValueStringBuilder"/>. You should call <see cref="ReturnRentedBuffer(char[]?)"/>
+    /// once you no longer require the buffer.
+    /// </para>
+    /// </remarks>
+    public char[]? GetRentedBuffer()
+    {
+        char[]? result = _arrayToReturnToPool;
+        this = default; // for safety, to avoid using pooled array if this instance is erroneously appended to again
+        return _arrayToReturnToPool;
+    }
+
+    /// <summary>
+    /// Returns the buffer retrieved from <see cref="RentedChars"/>.
+    /// </summary>
+    /// <param name="buffer">The buffer to return.</param>
+    public static void ReturnRentedBuffer(char[]? buffer)
+    {
+        if (buffer is char[] b)
+        {
+            ArrayPool<char>.Shared.Return(b);
+        }
+    }
+
     public void EnsureCapacity(int capacity)
     {
         // This is not expected to be called this with negative capacity
