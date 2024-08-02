@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevOps", "DevOps", "{3638DC
 		.editorconfig = .editorconfig
 		..\build.ps1 = ..\build.ps1
 		..\.github\workflows\build.yml = ..\.github\workflows\build.yml
+		GitVersion.yml = GitVersion.yml
 	EndProjectSection
 EndProject
 Global
