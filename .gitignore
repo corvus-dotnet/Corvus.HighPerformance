@@ -396,3 +396,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/Solutions/Corvus.HighPerformance.v3.ncrunchsolution
