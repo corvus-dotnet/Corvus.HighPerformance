@@ -252,7 +252,11 @@ public ref partial struct ValueStringBuilder
 #if NET8_0_OR_GREATER
         this.AppendSpanFormattable(value, format, provider);
 #else
-        //Append(s.ToString(format, provider));
+        if (format is not null || provider is not null)
+        {
+            Append(value.ToString(format, provider));
+            return;
+        }
 
         bool isNegative = value < 0;
         int length = isNegative ? 1 : 0;
