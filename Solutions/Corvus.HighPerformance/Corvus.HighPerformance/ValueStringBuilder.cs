@@ -237,11 +237,52 @@ public ref partial struct ValueStringBuilder
         }
         else
         {
-            AppendSlow(s);
+            AppendSlow(
+                s
+#if !NETCOREAPP
+                .AsSpan()
+#endif
+                );
         }
     }
 
-    private void AppendSlow(string s)
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public void Append(int value, string? format = null, IFormatProvider? provider = null)
+    {
+#if NET8_0_OR_GREATER
+        this.AppendSpanFormattable(value, format, provider);
+#else
+        //Append(s.ToString(format, provider));
+
+        bool isNegative = value < 0;
+        int length = isNegative ? 1 : 0;
+        value = Math.Abs(value);
+
+        // Calculate the length of the integer
+        length += value == 0 ? 1 : (int)Math.Floor(Math.Log10(value) + 1);
+        if (_pos > _chars.Length - length)
+        {
+            Grow(length);
+        }
+
+        if (isNegative)
+        {
+            _chars[_pos] = '-';
+        }
+
+        int index = _pos + length - 1;
+        do
+        {
+            _chars[index--] = (char)('0' + (value % 10));
+            value /= 10;
+        }
+        while (value > 0);
+
+        _pos += length;
+#endif
+    }
+
+    private void AppendSlow(ReadOnlySpan<char> s)
     {
         int pos = _pos;
         if (pos > _chars.Length - s.Length)
@@ -249,11 +290,7 @@ public ref partial struct ValueStringBuilder
             Grow(s.Length);
         }
 
-        s
-#if !NETCOREAPP
-            .AsSpan()
-#endif
-            .CopyTo(_chars.Slice(pos));
+        s.CopyTo(_chars.Slice(pos));
         _pos += s.Length;
     }
 

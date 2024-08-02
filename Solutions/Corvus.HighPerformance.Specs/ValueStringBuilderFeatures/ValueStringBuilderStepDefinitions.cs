@@ -6,6 +6,8 @@ using Corvus.HighPerformance.Specs;
 
 using Reqnroll;
 
+using static System.Net.Mime.MediaTypeNames;
+
 namespace ValueStringBuilderFeatures;
 
 [Binding]
@@ -26,6 +28,12 @@ public class ValueStringBuilderStepDefinitions(ExceptionStepDefinitions exceptio
     public void GivenIAppendToTheValueStringBuilder(string text)
     {
         this.Driver.AddOperation(new ValueStringBuilderTestDriver.AppendOperation(text));
+    }
+
+    [Given("I append the Int32 {int} to the ValueStringBuilder")]
+    public void GivenIAppendTheIntToTheValueStringBuilder(int v)
+    {
+        this.Driver.AddOperation(new ValueStringBuilderTestDriver.AppendInt32Operation(v));
     }
 
     [Given("I replace {string} with {string} at index {int} with count {int}")]

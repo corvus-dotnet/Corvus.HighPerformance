@@ -57,6 +57,14 @@ public class ValueStringBuilderTestDriver(
         }
     }
 
+    public class AppendInt32Operation(int value) : OperationBase
+    {
+        public override void Execute(ref ValueStringBuilder sb)
+        {
+            sb.Append(value);
+        }
+    }
+
     public class ReplaceOperation(
             string oldValue,
             string newValue,

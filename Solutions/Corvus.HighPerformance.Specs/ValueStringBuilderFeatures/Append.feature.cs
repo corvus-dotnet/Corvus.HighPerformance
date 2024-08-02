@@ -178,6 +178,104 @@ this.ScenarioInitialize(scenarioInfo);
             }
             await this.ScenarioCleanupAsync();
         }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Append number")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Append content into a ValueStringBuilder")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "13", "Hello, world!", "42", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "13", "Hello, world!", "42", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "15", "Hello, world!", "42", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "15", "Hello, world!", "42", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "13", "Hello, world!", "-42", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "13", "Hello, world!", "-42", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "15", "Hello, world!", "-42", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "15", "Hello, world!", "-42", null)]
+        public async System.Threading.Tasks.Task AppendNumber(string initializationType, string initialLength, string firstValue, string secondValue, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("InitializationType", initializationType);
+            argumentsOfScenario.Add("InitialLength", initialLength);
+            argumentsOfScenario.Add("FirstValue", firstValue);
+            argumentsOfScenario.Add("SecondValue", secondValue);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Append number", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 27
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 28
+    await testRunner.GivenAsync(string.Format("a ValueStringBuilder initialized with \'{0}\' of length {1}", initializationType, initialLength), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 29
+ await testRunner.AndAsync(string.Format("I append \'{0}\' to the ValueStringBuilder", firstValue), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 30
+ await testRunner.AndAsync(string.Format("I append the Int32 {0} to the ValueStringBuilder", secondValue), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 31
+ await testRunner.WhenAsync("I get the string from the ValueStringBuilder", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 32
+ await testRunner.ThenAsync(string.Format("the ValueStringBuilder string should be \'{0}{1}\'", firstValue, secondValue), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Append number then string")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "Append content into a ValueStringBuilder")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "13", "42", "Hello, world!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "13", "42", "Hello, world!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "15", "42", "Hello, world!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "15", "42", "Hello, world!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "13", "-42", "Hello, world!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "13", "-42", "Hello, world!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Span", "15", "-42", "Hello, world!", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("Capacity", "15", "-42", "Hello, world!", null)]
+        public async System.Threading.Tasks.Task AppendNumberThenString(string initializationType, string initialLength, string firstValue, string secondValue, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("InitializationType", initializationType);
+            argumentsOfScenario.Add("InitialLength", initialLength);
+            argumentsOfScenario.Add("FirstValue", firstValue);
+            argumentsOfScenario.Add("SecondValue", secondValue);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Append number then string", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 44
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 45
+    await testRunner.GivenAsync(string.Format("a ValueStringBuilder initialized with \'{0}\' of length {1}", initializationType, initialLength), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 46
+ await testRunner.AndAsync(string.Format("I append the Int32 {0} to the ValueStringBuilder", firstValue), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 47
+ await testRunner.AndAsync(string.Format("I append \'{0}\' to the ValueStringBuilder", secondValue), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 48
+ await testRunner.WhenAsync("I get the string from the ValueStringBuilder", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 49
+ await testRunner.ThenAsync(string.Format("the ValueStringBuilder string should be \'{0}{1}\'", firstValue, secondValue), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
     }
 }
 #pragma warning restore
