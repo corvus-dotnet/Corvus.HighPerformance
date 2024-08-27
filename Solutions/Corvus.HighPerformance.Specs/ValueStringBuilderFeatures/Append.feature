@@ -17,12 +17,14 @@ Scenario Outline: Grows
     Given a ValueStringBuilder initialized with '<InitializationType>' of length <InitialLength>
 	And I append '<FirstValue>' to the ValueStringBuilder
 	And I append '<SecondValue>' to the ValueStringBuilder
-	When I get the string from the ValueStringBuilder
+	When I get the string from the ValueStringBuilder via '<GetStringMechanism>'
 	Then the ValueStringBuilder string should be '<FirstValue><SecondValue>'
 	Examples:
-		| InitializationType | InitialLength | FirstValue    | SecondValue                         |
-		| Span               | 11            | Hello, world! | It is mighty fine to see you today. |
-		| Capacity           | 11            | Hello, world! | It is mighty fine to see you today. |
+		| InitializationType | InitialLength | FirstValue    | SecondValue                         | GetStringMechanism |
+		| Span               | 11            | Hello, world! | It is mighty fine to see you today. | ToString           |
+		| Capacity           | 11            | Hello, world! | It is mighty fine to see you today. | ToString           |
+		| Span               | 11            | Hello, world! | It is mighty fine to see you today. | GetRentedBuffer    |
+		| Capacity           | 11            | Hello, world! | It is mighty fine to see you today. | GetRentedBuffer    |
 
 Scenario Outline: Append number
     Given a ValueStringBuilder initialized with '<InitializationType>' of length <InitialLength>

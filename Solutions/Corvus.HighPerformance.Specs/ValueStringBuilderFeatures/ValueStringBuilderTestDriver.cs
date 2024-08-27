@@ -27,7 +27,7 @@ public class ValueStringBuilderTestDriver(
         this.operations.Add(operation);
     }
 
-    public void Execute()
+    public void Execute(bool valueFromRentedBuffer = false)
     {
         ValueStringBuilder sb = initType switch
         {
@@ -41,7 +41,17 @@ public class ValueStringBuilderTestDriver(
             op.Execute(ref sb);
         }
 
-        this.result = sb.ToString();
+        if (valueFromRentedBuffer)
+        {
+            int length = sb.Length;
+            char[]? rentedBuffer = sb.GetRentedBuffer();
+            this.result = rentedBuffer.AsSpan(0, length).ToString();
+            ValueStringBuilder.ReturnRentedBuffer(rentedBuffer);
+        }
+        else
+        {
+            this.result = sb.ToString();
+        }
     }
 
     public abstract class OperationBase

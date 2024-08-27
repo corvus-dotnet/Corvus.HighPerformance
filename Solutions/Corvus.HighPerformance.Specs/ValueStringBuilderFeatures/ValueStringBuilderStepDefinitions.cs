@@ -53,10 +53,21 @@ public class ValueStringBuilderStepDefinitions(ExceptionStepDefinitions exceptio
         this.Driver.Execute();
     }
 
+    [When("I get the string from the ValueStringBuilder via {string}")]
+    public void WhenIGetTheStringFromTheValueStringBuilderVia(string mechanism)
+    {
+        this.Driver.Execute(valueFromRentedBuffer: mechanism switch
+        {
+            "ToString" => false,
+            "GetRentedBuffer" => true,
+            _ => throw new ArgumentException($"Unknown mechanism {mechanism}"),
+        });
+    }
+
     [When("I get the string from the ValueStringBuilder")]
     public void WhenIGetTheStringFromTheValueStringBuilder()
     {
-        this.Driver.Execute();
+        this.WhenIGetTheStringFromTheValueStringBuilderVia("ToString");
     }
 
     [Then("the ValueStringBuilder string should be {string}")]

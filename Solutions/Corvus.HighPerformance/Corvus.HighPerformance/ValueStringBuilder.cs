@@ -65,7 +65,7 @@ public ref partial struct ValueStringBuilder
     {
         char[]? result = _arrayToReturnToPool;
         this = default; // for safety, to avoid using pooled array if this instance is erroneously appended to again
-        return _arrayToReturnToPool;
+        return result;
     }
 
     /// <summary>
@@ -312,22 +312,6 @@ public ref partial struct ValueStringBuilder
         }
         _pos += count;
     }
-
-    ////public unsafe void Append(char* value, int length)
-    ////{
-    ////    int pos = _pos;
-    ////    if (pos > _chars.Length - length)
-    ////    {
-    ////        Grow(length);
-    ////    }
-
-    ////    Span<char> dst = _chars.Slice(_pos, length);
-    ////    for (int i = 0; i < dst.Length; i++)
-    ////    {
-    ////        dst[i] = *value++;
-    ////    }
-    ////    _pos += length;
-    ////}
 
     public void Append(scoped ReadOnlySpan<char> value)
     {
