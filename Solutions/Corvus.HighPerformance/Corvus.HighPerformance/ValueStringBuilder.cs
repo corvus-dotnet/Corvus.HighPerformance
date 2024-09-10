@@ -132,7 +132,7 @@ public ref partial struct ValueStringBuilder
         }
     }
 
-    public string ToStringAndDispose()
+    public string CreateStringAndDispose()
     {
         string s = _chars.Slice(0, _pos).ToString();
         Dispose();

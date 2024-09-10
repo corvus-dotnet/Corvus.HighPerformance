@@ -43,14 +43,13 @@ public class ValueStringBuilderTestDriver(
 
         if (valueFromRentedBuffer)
         {
-            int length = sb.Length;
-            char[]? rentedBuffer = sb.GetRentedBuffer();
+            (char[]? rentedBuffer, int length) = sb.GetRentedBufferAndLengthAndDispose();
             this.result = rentedBuffer.AsSpan(0, length).ToString();
             ValueStringBuilder.ReturnRentedBuffer(rentedBuffer);
         }
         else
         {
-            this.result = sb.ToString();
+            this.result = sb.CreateStringAndDispose();
         }
     }
 
