@@ -10,6 +10,7 @@
 #pragma warning disable // Currently this is a straight copy of the original code, so we disable warnings to avoid diagnostic problems.
 
 using System.Buffers;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -40,7 +41,12 @@ public ref partial struct ValueStringBuilder
 
     public int Length
     {
-        get => _pos;
+        get
+        {
+            if (_pos < 0) { throw new ObjectDisposedException("Either Dispose or GetRentedBuffer or GetRentedBufferAndLength has already been called"); }
+            return _pos;
+        }
+
         set
         {
             Debug.Assert(value >= 0);
@@ -52,7 +58,8 @@ public ref partial struct ValueStringBuilder
     public int Capacity => _chars.Length;
 
     /// <summary>
-    /// Return the underlying rented buffer, if any.
+    /// Return the underlying rented buffer, if any, and the length of the string. This also
+    /// disposes the instance.
     /// </summary>
     /// <remarks>
     /// <para>
@@ -61,11 +68,12 @@ public ref partial struct ValueStringBuilder
     /// once you no longer require the buffer.
     /// </para>
     /// </remarks>
-    public char[]? GetRentedBuffer()
+    public (char[]? Buffer, int Length) GetRentedBufferAndLengthAndDispose()
     {
         char[]? result = _arrayToReturnToPool;
-        this = default; // for safety, to avoid using pooled array if this instance is erroneously appended to again
-        return result;
+        int length = Length;
+        SetToDisposed();
+        return (result, length);
     }
 
     /// <summary>
@@ -124,7 +132,7 @@ public ref partial struct ValueStringBuilder
         }
     }
 
-    public override string ToString()
+    public string CreateStringAndDispose()
     {
         string s = _chars.Slice(0, _pos).ToString();
         Dispose();
@@ -385,10 +393,21 @@ public ref partial struct ValueStringBuilder
     public void Dispose()
     {
         char[]? toReturn = _arrayToReturnToPool;
-        this = default; // for safety, to avoid using pooled array if this instance is erroneously appended to again
+        SetToDisposed();
         if (toReturn != null)
         {
             ArrayPool<char>.Shared.Return(toReturn);
         }
+    }
+
+    /// <summary>
+    /// Puts the object into a state preventing accidental continued use an a pool already returned
+    /// to an array, or attempting to retrieve information from the object after it has either
+    /// been disposed, or had its buffer returned to the pool as a result of calling
+    /// <see cref="ToString"/>.
+    /// </summary>
+    private void SetToDisposed()
+    {
+        this = default(ValueStringBuilder) with { _pos = -1 };
     }
 }

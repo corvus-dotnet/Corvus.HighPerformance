@@ -173,7 +173,7 @@ this.ScenarioInitialize(scenarioInfo);
  await testRunner.AndAsync(string.Format("I append \'{0}\' to the ValueStringBuilder", secondValue), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 20
- await testRunner.WhenAsync(string.Format("I get the string from the ValueStringBuilder via {0}", getStringMechanism), ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.WhenAsync(string.Format("I get the string from the ValueStringBuilder via \'{0}\'", getStringMechanism), ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 21
  await testRunner.ThenAsync(string.Format("the ValueStringBuilder string should be \'{0}{1}\'", firstValue, secondValue), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
