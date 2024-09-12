@@ -22,7 +22,7 @@ on:
         type: boolean
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.sha }}
   cancel-in-progress: true
 
 permissions:
@@ -31,7 +31,7 @@ permissions:
   contents: write  # enable creating releases
   issues: read
   packages: write  # enable publishing packages
-  pull-requests: write  # enable test result annotations 
+  pull-requests: write  # enable test result annotations
 
 jobs:
   prepareConfig:
@@ -45,48 +45,32 @@ jobs:
     - uses: endjin/Endjin.RecommendedPractices.GitHubActions/actions/prepare-env-vars-and-secrets@main
       id: prepareEnvVarsAndSecrets
       with:
-        # BUILDVAR_NuGetPublishSource:
-        #  When publishing NuGet packages only tagged versions get pushed to nuget.org, otherwise
-        #  they are pushed to GitHub Packages
-        # BUILDVAR_UseAcrTasks:
-        #  Due to the build phases running as separate jobs the container images built via 'docker build'
-        #  in the Package phase are not available to the Publish phase. Therefore, we use ACR Tasks to
-        #  build the images instead.
         environmentVariablesYaml: |
-          BUILDVAR_NuGetPublishSource: "${{ startsWith(github.ref, 'refs/tags/') && 'https://api.nuget.org/v3/index.json' || 'https://nuget.pkg.github.com/endjin/index.json' }}"
-          BUILDVAR_ContainerRegistryFqdn: endjin.azurecr.io
-          BUILDVAR_UseAcrTasks: true
+          BUILDVAR_NuGetPublishSource: "${{ startsWith(github.ref, 'refs/tags/') && 'https://api.nuget.org/v3/index.json' || format('https://nuget.pkg.github.com/{0}/index.json', github.repository_owner) }}"
         secretsYaml: |
-          NUGET_API_KEY: "${{ startsWith(github.ref, 'refs/tags/') && secrets.ENDJIN_NUGET_APIKEY || secrets.ENDJIN_GITHUB_PUBLISHER_PAT }}"
+          NUGET_API_KEY: "${{ startsWith(github.ref, 'refs/tags/') && secrets.NUGET_APIKEY || secrets.BUILD_PUBLISHER_PAT }}"
 
   build:
     needs: prepareConfig
-    uses: endjin/Endjin.RecommendedPractices.GitHubActions/.github/workflows/scripted-build-pipeline.yml@main
+    uses: endjin/Endjin.RecommendedPractices.GitHubActions/.github/workflows/scripted-build-matrix-pipeline.yml@main
     with:
-      netSdkVersion: '7.x'
+      netSdkVersion: '8.0.x'
+      # additionalNetSdkVersion: '7.0.x'
       # workflow_dispatch inputs are always strings, the type property is just for the UI
       forcePublish: ${{ github.event.inputs.forcePublish == 'true' }}
       skipCleanup: ${{ github.event.inputs.skipCleanup == 'true' }}
-
-      # These pass arbitrary environment variables to each of the build pipeline phases,
-      # as defined in the 'environmentVariablesYaml' property above.
+      # testArtifactName: ''
+      # testArtifactPath: ''
       compilePhaseEnv: ${{ needs.prepareConfig.outputs.RESOLVED_ENV_VARS }}
       testPhaseEnv: ${{ needs.prepareConfig.outputs.RESOLVED_ENV_VARS }}
       packagePhaseEnv: ${{ needs.prepareConfig.outputs.RESOLVED_ENV_VARS }}
       publishPhaseEnv: ${{ needs.prepareConfig.outputs.RESOLVED_ENV_VARS }}
     secrets:
-      # Ensures the build pipeline has access to pull images from the ACR and write SBOMs to storage
-      compilePhaseAzureCredentials: ${{ secrets.ENDJIN_PROD_ACR_READER_CREDENTIALS }}
-      # Ensures the build pipeline has access to run ACR Tasks
-      packagePhaseAzureCredentials: ${{ secrets.ENDJIN_PROD_ACR_PUBLISH_CREDENTIALS }}
-      # Ensures the build pipeline has access to push/re-tag images to the ACR
-      publishPhaseAzureCredentials: ${{ secrets.ENDJIN_PROD_ACR_PUBLISH_CREDENTIALS }}
-      
-      # Uncomment the following to pass arbitrary secrets to the required build pipeline phases,
-      # as defined in the 'secretsYaml' property above.  They will be available to the
-      # scripted build process as environment variables.
-      #
+      compilePhaseAzureCredentials: ${{ secrets.AZURE_READER_CREDENTIALS }}
+      # testPhaseAzureCredentials: ${{ secrets.TESTS_KV_READER_CREDENTIALS }}
+      # packagePhaseAzureCredentials: ${{ secrets.AZURE_PUBLISH_CREDENTIALS }}
+      # publishPhaseAzureCredentials: ${{ secrets.AZURE_PUBLISH_CREDENTIALS }}
       # compilePhaseSecrets: ${{ needs.prepareConfig.outputs.RESOLVED_SECRETS }}
       # testPhaseSecrets: ${{ needs.prepareConfig.outputs.RESOLVED_SECRETS }}
-      packagePhaseSecrets: ${{ needs.prepareConfig.outputs.RESOLVED_SECRETS }}
+      # packagePhaseSecrets: ${{ needs.prepareConfig.outputs.RESOLVED_SECRETS }}
       publishPhaseSecrets: ${{ needs.prepareConfig.outputs.RESOLVED_SECRETS }}
