@@ -10,6 +10,11 @@
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'net481'">
+    <ReqnrollFeatureFiles Remove="ValueStringBuilderFeatures/Net80/*.feature" />
+    <Compile Remove="ValueStringBuilderFeatures/Net80/*.feature.cs" />
+  </ItemGroup>
+
   <PropertyGroup>
     <!--
     SA1602, CS1591: Doc all the things!  Not appropriate for test projects.
@@ -48,6 +53,10 @@
 
   <ItemGroup>
     <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ValueStringBuilderFeatures\Net80\" />
   </ItemGroup>
 
 </Project>

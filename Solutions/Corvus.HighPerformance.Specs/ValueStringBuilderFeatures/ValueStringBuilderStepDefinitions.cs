@@ -2,6 +2,8 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
+using System.Text;
+
 using Corvus.HighPerformance.Specs;
 
 using Reqnroll;
@@ -35,6 +37,18 @@ public class ValueStringBuilderStepDefinitions(ExceptionStepDefinitions exceptio
     {
         this.Driver.AddOperation(new ValueStringBuilderTestDriver.AppendInt32Operation(v));
     }
+
+#if !NETFRAMEWORK
+    [Given("I append the format {string} to the ValueStringBuilder with arguments {int} and {string}")]
+    public void GivenIAppendTheFormatNumberString_ToTheValueStringBuilderWithArgumentsAnd(
+        string format, int arg1, string arg2)
+    {
+        this.Driver.AddOperation(new ValueStringBuilderTestDriver.AppendFormatOperation(
+            CompositeFormat.Parse(format),
+            arg1,
+            arg2));
+    }
+#endif
 
     [Given("I replace {string} with {string} at index {int} with count {int}")]
     public void GivenIReplaceWithAtIndexWithCount(

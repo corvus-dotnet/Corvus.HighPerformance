@@ -365,7 +365,8 @@ public ref partial struct ValueStringBuilder
     private void Grow(int additionalCapacityBeyondPos)
     {
         Debug.Assert(additionalCapacityBeyondPos > 0);
-        Debug.Assert(_pos > _chars.Length - additionalCapacityBeyondPos, "Grow called incorrectly, no resize is needed.");
+        Debug.Assert(_chars.Length < _pos + additionalCapacityBeyondPos, "Grow called incorrectly, no resize is needed.");
+        //Debug.Assert(_pos > _chars.Length - additionalCapacityBeyondPos, "Grow called incorrectly, no resize is needed.");
 
         const uint ArrayMaxLength = 0x7FFFFFC7; // same as Array.MaxLength
 
