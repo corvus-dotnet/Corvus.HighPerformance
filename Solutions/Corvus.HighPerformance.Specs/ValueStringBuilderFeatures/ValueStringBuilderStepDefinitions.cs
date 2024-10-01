@@ -2,13 +2,9 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-using System.Text;
-
 using Corvus.HighPerformance.Specs;
 
 using Reqnroll;
-
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ValueStringBuilderFeatures;
 

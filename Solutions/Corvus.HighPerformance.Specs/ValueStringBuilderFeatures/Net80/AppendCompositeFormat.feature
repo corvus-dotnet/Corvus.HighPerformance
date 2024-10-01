@@ -6,20 +6,18 @@ Scenario Outline: Append composite format
 	When I get the string from the ValueStringBuilder
 	Then the ValueStringBuilder string should be '<Result>'
 	Examples:
-		| InitializationType | InitialLength | CompositeFormat           | FirstValue | SecondValue   | Result                             |
-		| Span               | 34            | Number: {0}, string: {1}. | 42         | Hello, world! | Number: 42, string: Hello, world!. |
-		| Span               | 26            | {0}, string: {1}.         | 42         | Hello, world! | 42, string: Hello, world!.         |
-		| Span               | 33            | Number: {0}, string: {1}  | 42         | Hello, world! | Number: 42, string: Hello, world!  |
-		| Span               | 15            | {0}{1}                    | 42         | Hello, world! | 42Hello, world!                    |
-		| Span               | 15            | {1}{0}                    | 42         | Hello, world! | Hello, world!42                    |
-		| Capacity           | 34            | Number: {0}, string: {1}. | 42         | Hello, world! | Number: 42, string: Hello, world!. |
-		| Capacity           | 26            | {0}, string: {1}.         | 42         | Hello, world! | 42, string: Hello, world!.         |
-		| Capacity           | 33            | Number: {0}, string: {1}  | 42         | Hello, world! | Number: 42, string: Hello, world!  |
-		| Capacity           | 15            | {0}{1}                    | 42         | Hello, world! | 42Hello, world!                    |
-		| Capacity           | 15            | {1}{0}                    | 42         | Hello, world! | Hello, world!42                    |
-		| Span               | 34            | Number: {0}, string: {1}. | 42         | Hello, world! | Number: 42, string: Hello, world!. |
-		| Capacity           | 34            | Number: {0}, string: {1}. | 42         | Hello, world! | Number: 42, string: Hello, world!. |
-		| Span               | 35            | Number: {0}, string: {1}. | -42        | Hello, world! | Number: -42, string: Hello, world!. |
-		| Capacity           | 35            | Number: {0}, string: {1}. | -42        | Hello, world! | Number: -42, string: Hello, world!. |
+		| InitializationType | InitialLength | CompositeFormat           | FirstValue | SecondValue   | Result                              |
+		| Span               | 34            | Number: {0}, string: {1}. | 42         | Hello, world! | Number: 42, string: Hello, world!.  |
+		| Span               | 26            | {0}, string: {1}.         | 42         | Hello, world! | 42, string: Hello, world!.          |
+		| Span               | 33            | Number: {0}, string: {1}  | 42         | Hello, world! | Number: 42, string: Hello, world!   |
+		| Span               | 15            | {0}{1}                    | 42         | Hello, world! | 42Hello, world!                     |
+		| Span               | 15            | {1}{0}                    | 42         | Hello, world! | Hello, world!42                     |
+		| Capacity           | 34            | Number: {0}, string: {1}. | 42         | Hello, world! | Number: 42, string: Hello, world!.  |
+		| Capacity           | 26            | {0}, string: {1}.         | 42         | Hello, world! | 42, string: Hello, world!.          |
+		| Capacity           | 33            | Number: {0}, string: {1}  | 42         | Hello, world! | Number: 42, string: Hello, world!   |
+		| Capacity           | 15            | {0}{1}                    | 42         | Hello, world! | 42Hello, world!                     |
+		| Capacity           | 15            | {1}{0}                    | 42         | Hello, world! | Hello, world!42                     |
+		| Span               | 34            | Number: {0}, string: {1}. | 42         | Hello, world! | Number: 42, string: Hello, world!.  |
+		| Capacity           | 34            | Number: {0}, string: {1}. | 42         | Hello, world! | Number: 42, string: Hello, world!.  |
 		| Span               | 35            | Number: {0}, string: {1}. | -42        | Hello, world! | Number: -42, string: Hello, world!. |
 		| Capacity           | 35            | Number: {0}, string: {1}. | -42        | Hello, world! | Number: -42, string: Hello, world!. |
