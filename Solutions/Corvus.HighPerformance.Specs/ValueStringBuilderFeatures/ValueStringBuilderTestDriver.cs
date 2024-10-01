@@ -2,6 +2,9 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
+using System.Globalization;
+using System.Text;
+
 using Corvus.HighPerformance;
 using Corvus.HighPerformance.Specs;
 
@@ -73,6 +76,16 @@ public class ValueStringBuilderTestDriver(
             sb.Append(value);
         }
     }
+
+#if !NETFRAMEWORK
+    public class AppendFormatOperation(CompositeFormat format, int arg1, string arg2) : OperationBase
+    {
+        public override void Execute(ref ValueStringBuilder sb)
+        {
+            sb.AppendFormat(CultureInfo.InvariantCulture, format, [arg1, arg2]);
+        }
+    }
+#endif
 
     public class ReplaceOperation(
             string oldValue,

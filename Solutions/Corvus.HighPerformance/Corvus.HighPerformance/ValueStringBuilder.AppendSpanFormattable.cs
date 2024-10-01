@@ -11,6 +11,8 @@
 
 #if NET8_0_OR_GREATER
 
+using System.Text;
+
 namespace Corvus.HighPerformance;
 
 public ref partial struct ValueStringBuilder
