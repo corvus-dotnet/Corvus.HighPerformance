@@ -66,20 +66,51 @@ public class ValueStringBuilderStepDefinitions(ExceptionStepDefinitions exceptio
     }
 
     [When("I get the string from the ValueStringBuilder via {string}")]
-    public void WhenIGetTheStringFromTheValueStringBuilderVia(string mechanism)
+    public void WhenIGetTheStringFromTheValueStringBuilderVia(ValueStringBuilderValueFrom mechanism)
     {
-        this.Driver.Execute(valueFromRentedBuffer: mechanism switch
-        {
-            "ToString" => false,
-            "GetRentedBuffer" => true,
-            _ => throw new ArgumentException($"Unknown mechanism {mechanism}"),
-        });
+        this.Driver.Execute(valueFrom: mechanism);
     }
 
     [When("I get the string from the ValueStringBuilder")]
     public void WhenIGetTheStringFromTheValueStringBuilder()
     {
-        this.WhenIGetTheStringFromTheValueStringBuilderVia("ToString");
+        this.WhenIGetTheStringFromTheValueStringBuilderVia(ValueStringBuilderValueFrom.CreateStringAndDispose);
+    }
+
+    [When("I get the Memory starting at {int} with length {int} from the ValueStringBuilder")]
+    public void WhenIGetTheMemoryStartingAtWithLengthFromTheValueStringBuilder(int start, int length)
+    {
+        this.Driver.Execute(ValueStringBuilderValueFrom.Memory, start, length);
+    }
+
+    [When("I get the Memory starting at {int} from the ValueStringBuilder")]
+    public void WhenIGetTheMemoryStartingAtFromTheValueStringBuilder(int start)
+    {
+        this.Driver.Execute(ValueStringBuilderValueFrom.Memory, start);
+    }
+
+    [When("I get the Memory from the ValueStringBuilder")]
+    public void WhenIGetTheMemoryFromTheValueStringBuilder()
+    {
+        this.Driver.Execute(ValueStringBuilderValueFrom.Memory);
+    }
+
+    [When("I get the Span starting at {int} with length {int} from the ValueStringBuilder")]
+    public void WhenIGetTheSpanStartingAtWithLengthFromTheValueStringBuilder(int start, int length)
+    {
+        this.Driver.Execute(ValueStringBuilderValueFrom.Span, start, length);
+    }
+
+    [When("I get the Span starting at {int} from the ValueStringBuilder")]
+    public void WhenIGetTheSpanStartingAtFromTheValueStringBuilder(int start)
+    {
+        this.Driver.Execute(ValueStringBuilderValueFrom.Span, start);
+    }
+
+    [When("I get the Span from the ValueStringBuilder")]
+    public void WhenIGetTheSpanFromTheValueStringBuilder()
+    {
+        this.Driver.Execute(ValueStringBuilderValueFrom.Span);
     }
 
     [Then("the ValueStringBuilder string should be {string}")]
