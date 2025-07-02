@@ -160,6 +160,42 @@ public ref partial struct ValueStringBuilder
     public ReadOnlySpan<char> AsSpan(int start) => _chars.Slice(start, _pos - start);
     public ReadOnlySpan<char> AsSpan(int start, int length) => _chars.Slice(start, length);
 
+    /// <summary>
+    /// Returns the contents of the builder as a <see cref="ReadOnlyMemory{T}"/>, renting the underlying buffer if it
+    /// is not already backed by a rented buffer.
+    /// </summary>
+    /// <returns>The value as a <see cref="ReadOnlyMemory{Char}"/></returns>
+    public ReadOnlyMemory<char> AsMemory()
+    {
+        this.EnsureRented();
+        return _arrayToReturnToPool.AsMemory(0, _pos);
+    }
+
+    /// <summary>
+    /// Returns the contents of the builder as a <see cref="ReadOnlyMemory{T}"/>, renting the underlying buffer if it
+    /// is not already backed by a rented buffer.
+    /// </summary>
+    /// <param name="start">The index within the string at which to start.</param>
+    /// <returns>The value as a <see cref="ReadOnlyMemory{Char}"/></returns>
+    public ReadOnlyMemory<char> AsMemory(int start)
+    {
+        this.EnsureRented();
+        return _arrayToReturnToPool.AsMemory(start, _pos - start);
+    }
+
+    /// <summary>
+    /// Returns the contents of the builder as a <see cref="ReadOnlyMemory{T}"/>, renting the underlying buffer if it
+    /// is not already backed by a rented buffer.
+    /// </summary>
+    /// <param name="start">The index within the string at which to start.</param>
+    /// <param name="length">The length of the span to return.</param>
+    /// <returns>The value as a <see cref="ReadOnlyMemory{Char}"/></returns>
+    public ReadOnlyMemory<char> AsMemory(int start, int length)
+    {
+        this.EnsureRented();
+        return _arrayToReturnToPool.AsMemory(start, length);
+    }
+
     public bool TryCopyTo(Span<char> destination, out int charsWritten)
     {
         if (_chars.Slice(0, _pos).TryCopyTo(destination))
@@ -410,5 +446,15 @@ public ref partial struct ValueStringBuilder
     private void SetToDisposed()
     {
         this = default(ValueStringBuilder) with { _pos = -1 };
+    }
+
+    private void EnsureRented()
+    {
+        if (_arrayToReturnToPool == null)
+        {
+            _arrayToReturnToPool = ArrayPool<char>.Shared.Rent(_chars.Length);
+            _chars.Slice(0, _pos).CopyTo(_arrayToReturnToPool);
+            _chars = _arrayToReturnToPool;
+        }
     }
 }
