@@ -2,6 +2,9 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
+using System.Globalization;
+using System.Text;
+
 using Corvus.HighPerformance;
 using Corvus.HighPerformance.Specs;
 
@@ -27,7 +30,10 @@ public class ValueStringBuilderTestDriver(
         this.operations.Add(operation);
     }
 
-    public void Execute(bool valueFromRentedBuffer = false)
+    public void Execute(
+        ValueStringBuilderValueFrom valueFrom = ValueStringBuilderValueFrom.CreateStringAndDispose,
+        int? start = null,
+        int? length = null)
     {
         ValueStringBuilder sb = initType switch
         {
@@ -41,15 +47,62 @@ public class ValueStringBuilderTestDriver(
             op.Execute(ref sb);
         }
 
-        if (valueFromRentedBuffer)
+        switch (valueFrom)
         {
-            (char[]? rentedBuffer, int length) = sb.GetRentedBufferAndLengthAndDispose();
-            this.result = rentedBuffer.AsSpan(0, length).ToString();
-            ValueStringBuilder.ReturnRentedBuffer(rentedBuffer);
-        }
-        else
-        {
-            this.result = sb.CreateStringAndDispose();
+            case ValueStringBuilderValueFrom.CreateStringAndDispose:
+                this.result = sb.CreateStringAndDispose();
+                break;
+
+            case ValueStringBuilderValueFrom.RentedBuffer:
+                (char[]? rentedBuffer, int returnedLength) = sb.GetRentedBufferAndLengthAndDispose();
+                this.result = rentedBuffer.AsSpan(0, returnedLength).ToString();
+                ValueStringBuilder.ReturnRentedBuffer(rentedBuffer);
+                break;
+
+            case ValueStringBuilderValueFrom.Memory:
+                if (length.HasValue)
+                {
+                    if (!start.HasValue)
+                    {
+                        throw new ArgumentException("If length is specified, start must also be specified.", nameof(length));
+                    }
+
+                    this.result = sb.AsMemory(start.Value, length.Value).ToString();
+                }
+                else if (start.HasValue)
+                {
+                    this.result = sb.AsMemory(start.Value).ToString();
+                }
+                else
+                {
+                    this.result = sb.AsMemory().ToString();
+                }
+
+                break;
+
+            case ValueStringBuilderValueFrom.Span:
+                if (length.HasValue)
+                {
+                    if (!start.HasValue)
+                    {
+                        throw new ArgumentException("If length is specified, start must also be specified.", nameof(length));
+                    }
+
+                    this.result = sb.AsSpan(start.Value, length.Value).ToString();
+                }
+                else if (start.HasValue)
+                {
+                    this.result = sb.AsSpan(start.Value).ToString();
+                }
+                else
+                {
+                    this.result = sb.AsSpan().ToString();
+                }
+
+                break;
+
+            default:
+                throw new ArgumentOutOfRangeException(nameof(valueFrom), valueFrom, null);
         }
     }
 
@@ -73,6 +126,16 @@ public class ValueStringBuilderTestDriver(
             sb.Append(value);
         }
     }
+
+#if !NETFRAMEWORK
+    public class AppendFormatOperation(CompositeFormat format, int arg1, string arg2) : OperationBase
+    {
+        public override void Execute(ref ValueStringBuilder sb)
+        {
+            sb.AppendFormat(CultureInfo.InvariantCulture, format, [arg1, arg2]);
+        }
+    }
+#endif
 
     public class ReplaceOperation(
             string oldValue,

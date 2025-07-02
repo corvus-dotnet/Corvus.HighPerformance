@@ -20,11 +20,11 @@ Scenario Outline: Grows
 	When I get the string from the ValueStringBuilder via '<GetStringMechanism>'
 	Then the ValueStringBuilder string should be '<FirstValue><SecondValue>'
 	Examples:
-		| InitializationType | InitialLength | FirstValue    | SecondValue                         | GetStringMechanism |
-		| Span               | 11            | Hello, world! | It is mighty fine to see you today. | ToString           |
-		| Capacity           | 11            | Hello, world! | It is mighty fine to see you today. | ToString           |
-		| Span               | 11            | Hello, world! | It is mighty fine to see you today. | GetRentedBuffer    |
-		| Capacity           | 11            | Hello, world! | It is mighty fine to see you today. | GetRentedBuffer    |
+		| InitializationType | InitialLength | FirstValue    | SecondValue                         | GetStringMechanism     |
+		| Span               | 11            | Hello, world! | It is mighty fine to see you today. | CreateStringAndDispose |
+		| Capacity           | 11            | Hello, world! | It is mighty fine to see you today. | CreateStringAndDispose |
+		| Span               | 11            | Hello, world! | It is mighty fine to see you today. | RentedBuffer           |
+		| Capacity           | 11            | Hello, world! | It is mighty fine to see you today. | RentedBuffer           |
 
 Scenario Outline: Append number
     Given a ValueStringBuilder initialized with '<InitializationType>' of length <InitialLength>
