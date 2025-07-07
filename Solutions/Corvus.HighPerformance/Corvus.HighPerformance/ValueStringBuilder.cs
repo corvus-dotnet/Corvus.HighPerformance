@@ -89,7 +89,7 @@ public ref partial struct ValueStringBuilder
     /// Returns the buffer retrieved from <see cref="RentedChars"/>.
     /// </summary>
     /// <param name="buffer">The buffer to return.</param>
-    /// <para name="clearBuffer">If <see langword="true"/> then clear the buffer when returned.
+    /// <param name="clearBuffer">If <see langword="true"/> then clear the buffer when returned.</param>
     public static void ReturnRentedBuffer(char[]? buffer, bool clearBuffer)
     {
         if (buffer is char[] b)
