@@ -82,7 +82,7 @@ public ref partial struct ValueStringBuilder
     /// <param name="buffer">The buffer to return.</param>
     public static void ReturnRentedBuffer(char[]? buffer)
     {
-        this.ReturnRentedBuffer(buffer, false);
+        ReturnRentedBuffer(buffer, false);
     }
 
     /// <summary>
