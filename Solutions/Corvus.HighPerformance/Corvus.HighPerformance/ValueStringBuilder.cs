@@ -82,9 +82,19 @@ public ref partial struct ValueStringBuilder
     /// <param name="buffer">The buffer to return.</param>
     public static void ReturnRentedBuffer(char[]? buffer)
     {
+        ReturnRentedBuffer(buffer, false);
+    }
+
+    /// <summary>
+    /// Returns the buffer retrieved from <see cref="RentedChars"/>.
+    /// </summary>
+    /// <param name="buffer">The buffer to return.</param>
+    /// <param name="clearBuffer">If <see langword="true"/> then clear the buffer when returned.</param>
+    public static void ReturnRentedBuffer(char[]? buffer, bool clearBuffer)
+    {
         if (buffer is char[] b)
         {
-            ArrayPool<char>.Shared.Return(b);
+            ArrayPool<char>.Shared.Return(b, clearBuffer);
         }
     }
 
@@ -433,7 +443,7 @@ public ref partial struct ValueStringBuilder
         SetToDisposed();
         if (toReturn != null)
         {
-            ArrayPool<char>.Shared.Return(toReturn);
+            ArrayPool<char>.Shared.Return(toReturn, true);
         }
     }
 
