@@ -55,8 +55,4 @@
     <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ValueStringBuilderFeatures\Net80\" />
-  </ItemGroup>
-
 </Project>
