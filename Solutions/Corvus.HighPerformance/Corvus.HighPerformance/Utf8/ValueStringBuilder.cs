@@ -152,7 +152,7 @@ public ref partial struct ValueStringBuilder
     }
 
     /// <summary>Returns the underlying storage of the builder.</summary>
-    public Span<byte> Rawbytes => _bytes;
+    public Span<byte> RawBytes => _bytes;
 
     /// <summary>
     /// Returns a span around the contents of the builder.
