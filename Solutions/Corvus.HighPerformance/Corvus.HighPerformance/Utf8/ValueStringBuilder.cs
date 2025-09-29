@@ -152,8 +152,8 @@ public ref partial struct ValueStringBuilder
     }
 
     /// <summary>Returns the underlying storage of the builder.</summary>
-    public Span<byte> Rawbytes => _bytes;
-
+    public Span<byte> RawBytes => _bytes;
+    
     /// <summary>
     /// Slice the builder to remove the first <paramref name="start"/> bytes.
     /// </summary>
