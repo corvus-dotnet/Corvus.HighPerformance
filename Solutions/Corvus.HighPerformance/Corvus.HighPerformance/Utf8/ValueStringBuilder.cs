@@ -155,6 +155,29 @@ public ref partial struct ValueStringBuilder
     public Span<byte> Rawbytes => _bytes;
 
     /// <summary>
+    /// Slice the builder to remove the first <paramref name="start"/> bytes.
+    /// </summary>
+    /// <param name="start">The number of bytes to slice from the start.</param>
+    public void Slice(int start)
+    {
+        Debug.Assert(start <= _pos);
+        _bytes = _bytes.Slice(start);
+        _pos -= start;
+    }
+
+    /// <summary>
+    /// Slice the builder to the specified range.
+    /// </summary>
+    /// <param name="start">The number of bytes to slice from the start.</param>
+    /// <param name="length">The final length of the span.</param>
+    public void Slice(int start, int length)
+    {
+        Debug.Assert(start + length <= _pos);
+        _bytes = _bytes.Slice(start);
+        _pos = length;
+    }
+
+    /// <summary>
     /// Returns a span around the contents of the builder.
     /// </summary>
     /// <param name="terminate">Ensures that the builder has a null byte after <see cref="Length"/></param>
