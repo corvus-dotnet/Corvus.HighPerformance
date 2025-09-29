@@ -160,4 +160,41 @@ public class Utf8ValueStringBuilderTestDriver(
             }
         }
     }
+
+    public class AttemptSliceOperation(
+        int count,
+        ExceptionStepDefinitions exceptionSteps)
+    : OperationBase
+    {
+        public override void Execute(ref ValueStringBuilder sb)
+        {
+            try
+            {
+                sb.Slice(count);
+            }
+            catch (Exception ex)
+            {
+                exceptionSteps.Exception = ex;
+            }
+        }
+    }
+
+    public class AttemptSliceWithLengthOperation(
+    int count,
+    int length,
+    ExceptionStepDefinitions exceptionSteps)
+        : OperationBase
+    {
+        public override void Execute(ref ValueStringBuilder sb)
+        {
+            try
+            {
+                sb.Slice(count,  length);
+            }
+            catch (Exception ex)
+            {
+                exceptionSteps.Exception = ex;
+            }
+        }
+    }
 }

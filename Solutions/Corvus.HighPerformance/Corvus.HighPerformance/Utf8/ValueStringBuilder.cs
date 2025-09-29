@@ -160,7 +160,11 @@ public ref partial struct ValueStringBuilder
     /// <param name="start">The number of bytes to slice from the start.</param>
     public void Slice(int start)
     {
-        Debug.Assert(start <= _pos);
+        if (start > _pos)
+        {
+            throw new ArgumentOutOfRangeException();
+        }
+
         _bytes = _bytes.Slice(start);
         _pos -= start;
     }
@@ -172,7 +176,11 @@ public ref partial struct ValueStringBuilder
     /// <param name="length">The final length of the span.</param>
     public void Slice(int start, int length)
     {
-        Debug.Assert(start + length <= _pos);
+        if(start + length > _pos)
+        {
+            throw new ArgumentOutOfRangeException();
+        }
+
         _bytes = _bytes.Slice(start);
         _pos = length;
     }
