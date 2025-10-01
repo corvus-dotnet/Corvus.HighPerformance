@@ -170,7 +170,7 @@ public class Utf8ValueStringBuilderTestDriver(
         {
             try
             {
-                sb.Slice(count);
+                sb.ApplySlice(count);
             }
             catch (Exception ex)
             {
@@ -189,7 +189,7 @@ public class Utf8ValueStringBuilderTestDriver(
         {
             try
             {
-                sb.Slice(count,  length);
+                sb.ApplySlice(count,  length);
             }
             catch (Exception ex)
             {

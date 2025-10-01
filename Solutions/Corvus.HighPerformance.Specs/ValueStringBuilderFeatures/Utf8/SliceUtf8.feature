@@ -65,5 +65,5 @@ Scenario Outline: Specified range is out of bounds (start and length)
 	Then the attempt should have thrown a 'System.ArgumentOutOfRangeException'
 	Examples:
 		| InitializationType | Start |
-		| Span               | 7     |
+		| Span               | 6     |
 		| Capacity           | 7     |
