@@ -7,6 +7,7 @@ using System.Text;
 using Corvus.HighPerformance.Specs;
 
 using Reqnroll;
+using ValueStringBuilderFeatures.Utf8;
 
 namespace ValueStringBuilderFeatures;
 
@@ -63,6 +64,34 @@ public class ValueStringBuilderStepDefinitions(ExceptionStepDefinitions exceptio
         this.Driver.AddOperation(new ValueStringBuilderTestDriver.AttemptReplaceOperation(
             oldValue, newValue, startIndex, count, exceptionSteps));
         this.Driver.Execute();
+    }
+
+    [Given("I slice {int} characters from the start of the ValueStringBuilder")]
+    public void GivenISliceCharactersFromTheStartOfTheUtf8ValueStringBuilder(
+    int start)
+    {
+        this.Driver.AddOperation(new ValueStringBuilderTestDriver.AttemptSliceOperation(start, exceptionSteps));
+        try
+        {
+            this.Driver.Execute();
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+        }
+    }
+
+    [Given("I slice {int} characters from the start of the ValueStringBuilder with length {int}")]
+    public void GivenISliceCharactersFromTheStartOfTheUtf8ValueStringBuilderWithLength(
+        int start, int length)
+    {
+        this.Driver.AddOperation(new ValueStringBuilderTestDriver.AttemptSliceWithLengthOperation(start, length, exceptionSteps));
+        try
+        {
+            this.Driver.Execute();
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+        }
     }
 
     [When("I get the string from the ValueStringBuilder via {string}")]

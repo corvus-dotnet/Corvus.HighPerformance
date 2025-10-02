@@ -170,4 +170,41 @@ public class ValueStringBuilderTestDriver(
             }
         }
     }
+
+    public class AttemptSliceOperation(
+        int count,
+        ExceptionStepDefinitions exceptionSteps)
+            : OperationBase
+    {
+        public override void Execute(ref ValueStringBuilder sb)
+        {
+            try
+            {
+                sb.ApplySlice(count);
+            }
+            catch (Exception ex)
+            {
+                exceptionSteps.Exception = ex;
+            }
+        }
+    }
+
+    public class AttemptSliceWithLengthOperation(
+        int count,
+        int length,
+        ExceptionStepDefinitions exceptionSteps)
+            : OperationBase
+    {
+        public override void Execute(ref ValueStringBuilder sb)
+        {
+            try
+            {
+                sb.ApplySlice(count, length);
+            }
+            catch (Exception ex)
+            {
+                exceptionSteps.Exception = ex;
+            }
+        }
+    }
 }

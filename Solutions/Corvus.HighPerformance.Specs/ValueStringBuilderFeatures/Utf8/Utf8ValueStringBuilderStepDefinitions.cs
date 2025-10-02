@@ -53,6 +53,34 @@ public class Utf8ValueStringBuilderStepDefinitions(ExceptionStepDefinitions exce
         this.Driver.Execute();
     }
 
+    [Given("I slice {int} characters from the start of the UTF-8 ValueStringBuilder")]
+    public void GivenISliceCharactersFromTheStartOfTheUtf8ValueStringBuilder(
+        int start)
+    {
+        this.Driver.AddOperation(new Utf8ValueStringBuilderTestDriver.AttemptSliceOperation(start, exceptionSteps));
+        try
+        {
+            this.Driver.Execute();
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+        }
+    }
+
+    [Given("I slice {int} characters from the start of the UTF-8 ValueStringBuilder with length {int}")]
+    public void GivenISliceCharactersFromTheStartOfTheUtf8ValueStringBuilderWithLength(
+        int start, int length)
+    {
+        this.Driver.AddOperation(new Utf8ValueStringBuilderTestDriver.AttemptSliceWithLengthOperation(start, length, exceptionSteps));
+        try
+        {
+            this.Driver.Execute();
+        }
+        catch (ArgumentOutOfRangeException)
+        {
+        }
+    }
+
     [When("I get the string from the UTF-8 ValueStringBuilder via {string}")]
     public void WhenIGetTheStringFromTheUtf8ValueStringBuilderVia(Utf8ValueStringBuilderValueFrom mechanism)
     {

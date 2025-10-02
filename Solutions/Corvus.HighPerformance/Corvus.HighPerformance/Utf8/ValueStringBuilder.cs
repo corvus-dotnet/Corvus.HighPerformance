@@ -153,6 +153,37 @@ public ref partial struct ValueStringBuilder
 
     /// <summary>Returns the underlying storage of the builder.</summary>
     public Span<byte> RawBytes => _bytes;
+    
+    /// <summary>
+    /// Slice the builder to remove the first <paramref name="start"/> bytes.
+    /// </summary>
+    /// <param name="start">The number of bytes to slice from the start.</param>
+    public void ApplySlice(int start)
+    {
+        if (start > _pos)
+        {
+            throw new ArgumentOutOfRangeException();
+        }
+
+        _bytes = _bytes.Slice(start);
+        _pos -= start;
+    }
+
+    /// <summary>
+    /// Slice the builder to the specified range.
+    /// </summary>
+    /// <param name="start">The number of bytes to slice from the start.</param>
+    /// <param name="length">The final length of the span.</param>
+    public void ApplySlice(int start, int length)
+    {
+        if(start + length > _pos)
+        {
+            throw new ArgumentOutOfRangeException();
+        }
+
+        _bytes = _bytes.Slice(start);
+        _pos = length;
+    }
 
     /// <summary>
     /// Returns a span around the contents of the builder.
